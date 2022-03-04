@@ -15,7 +15,7 @@ test("should calculate cache in fee for a transaction ", () => {
   expect(
     cashInFeeCalculator({
       ...transaction,
-      operation: { amount: 100000, currency: "EUR" },
+      operation: { amount: 1000000, currency: "EUR" },
     })
   ).toEqual(5);
 });
