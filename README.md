@@ -30,7 +30,7 @@ npm t
 
 
 
-## FYI
+## P.S
 
 Due to the time limit, I tried my best, but there is so much more that can be done for this task and it is not complete. 
 - Fee information has not been connected to the APIs and they are hardcoded in the config
