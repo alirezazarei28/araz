@@ -30,6 +30,7 @@ npm t
 
 ## P.S
 
+Diagram is like: 
 ![Diagram](diag.png)
 
 Due to the time limit, I tried my best, but there is so much more that can be done for this task and it is not complete.
