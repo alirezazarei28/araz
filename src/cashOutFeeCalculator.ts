@@ -3,23 +3,23 @@ import * as configs from "./configs";
 import { amountIsExceeded } from "./utils/amountIsExceeded";
 import axios from "axios";
 
-// TODO: create a hook for this
-const getCacheOutFeeJuridical = async () => {
-  const res = await axios.get(
-    // TODO: move this to env variables
-    "https://developers.paysera.com/tasks/api/cash-out-juridical"
-  );
-  return res.data;
-};
+// // TODO: create a hook for this
+// const getCacheOutFeeJuridical = async () => {
+//   const res = await axios.get(
+//     // TODO: move this to env variables
+//     "https://developers.paysera.com/tasks/api/cash-out-juridical"
+//   );
+//   return res.data;
+// };
 
-// TODO: create a hook for this
-const getCacheOutFeeNatural = async () => {
-  const res = await axios.get(
-    // TODO: move this to env variables
-    "https://developers.paysera.com/tasks/api/cash-out-natural"
-  );
-  return res.data;
-};
+// // TODO: create a hook for this
+// const getCacheOutFeeNatural = async () => {
+//   const res = await axios.get(
+//     // TODO: move this to env variables
+//     "https://developers.paysera.com/tasks/api/cash-out-natural"
+//   );
+//   return res.data;
+// };
 
 const CashOutFeeJuridical = (transaction: Transaction) =>
   transaction.operation.amount * configs.CASH_OUT_FEE_JURIDICAL >
