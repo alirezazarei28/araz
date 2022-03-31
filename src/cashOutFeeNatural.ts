@@ -1,4 +1,4 @@
-import { getCashOutFeeNatural } from "./configs";
+import { getCashOutFeeNatural } from "./APIs/getCashOutFeeNatural";
 import { Transaction } from "./Types";
 import { amountIsExceeded } from "./utils/amountIsExceeded";
 

@@ -1,4 +1,4 @@
-import { getCashOutFeeJuridical } from "./configs";
+import { getCashOutFeeJuridical } from "./APIs/getCashOutFeeJuridical";
 import { Transaction } from "./Types";
 
 const CashOutFeeJuridical = async (transaction: Transaction) => {

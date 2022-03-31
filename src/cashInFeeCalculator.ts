@@ -1,5 +1,5 @@
+import { getCashInFee } from "./APIs/getCashInFee";
 import { Transaction } from "./Types";
-import { getCashInFee } from "./configs";
 
 const cashInFeeCalculator = async (transaction: Transaction) => {
   const { cashInFee, cashInFeeMax } = await getCashInFee();
