@@ -30,14 +30,14 @@ npm t
 
 ## P.S
 
-Diagram is like: 
+Diagram is like:
 ![Diagram](diag.png)
 
 Due to the time limit, I tried my best, but there is so much more that can be done for this task and it is not complete.
 
-- Fee information has not been connected to the APIs and they are hardcoded in the config
+- Some refactoring can be done and make components more reuseable
 - Much more tests can be added
-- Environemnt variables should be added
+- Environment variables should be added
 - It should be dockerized
 - Pipelines can be added
 - For saving the state of a paid fee to track the weekly limit a simple service can be added
