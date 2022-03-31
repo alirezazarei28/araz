@@ -28,8 +28,8 @@ afterAll(() => {
   mockCashOut.mockReset();
 });
 
-test("should calculate commission fees for cash-in transaction types ", () => {
-  calculateCommissionFees(mockData);
+test("should calculate commission fees for cash-in transaction types ", async () => {
+  await calculateCommissionFees(mockData);
 
   expect(mockCashIn).toBeCalledWith(mockData[0]);
   expect(mockCashOut).toBeCalledWith(mockData[1], [mockData[0], mockData[1]]);

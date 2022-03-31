@@ -5,9 +5,9 @@ import { calculateCommissionFees } from "./calculateCommissionFees";
 const inputFile = process.argv.splice(2);
 
 try {
-  fs.readFile(inputFile[0], "utf-8", (error, data) => {
+  fs.readFile(inputFile[0], "utf-8", async (error, data) => {
     if (error) throw error;
-    calculateCommissionFees(JSON.parse(data));
+    await calculateCommissionFees(JSON.parse(data));
   });
 } catch (e) {
   console.error(

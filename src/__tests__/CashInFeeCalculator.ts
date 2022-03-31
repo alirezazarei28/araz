@@ -9,11 +9,11 @@ const transaction: Transaction = {
   operation: { amount: 200.0, currency: "EUR" },
 };
 
-test("should calculate cache in fee for a transaction ", () => {
-  expect(cashInFeeCalculator(transaction)).toEqual(0.06);
+test("should calculate cache in fee for a transaction ", async () => {
+  expect(await cashInFeeCalculator(transaction)).toEqual(0.06);
 
   expect(
-    cashInFeeCalculator({
+    await cashInFeeCalculator({
       ...transaction,
       operation: { amount: 1000000, currency: "EUR" },
     })

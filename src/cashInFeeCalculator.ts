@@ -1,19 +1,11 @@
 import { Transaction } from "./Types";
-import * as configs from "./configs";
-import axios from "axios";
+import { getCashInFee } from "./configs";
 
-// // TODO: create a hook for this
-// const getCacheInFee = async () => {
-//   const res = await axios.get(
-//     // TODO: move this to env variables
-//     "https://developers.paysera.com/tasks/api/cash-in"
-//   );
-//   return res.data;
-// };
-
-const cashInFeeCalculator = (transaction: Transaction) =>
-  transaction.operation.amount * configs.CASH_IN_FEE < configs.CASH_IN_FEE_MAX
-    ? transaction.operation.amount * configs.CASH_IN_FEE
+const cashInFeeCalculator = async (transaction: Transaction) => {
+  const { cashInFee, cashInFeeMax } = await getCashInFee();
+  return transaction.operation.amount * cashInFee < cashInFeeMax
+    ? transaction.operation.amount * cashInFee
     : 5;
+};
 
 export { cashInFeeCalculator };

@@ -3,14 +3,15 @@ import * as configs from "../configs";
 
 const amountIsExceeded = (
   transaction: Transaction,
-  submittedTransactions: Transaction[]
+  submittedTransactions: Transaction[],
+  cashOutFeeNaturalWeekLimit: Number
 ) => {
   // this should come from a rest api
   const amountUsed = getAmountUsedFromPreviousMonday(
     transaction,
     submittedTransactions
   );
-  if (amountUsed > configs.USER_NATURAL_FREE_LIMIT) {
+  if (amountUsed > cashOutFeeNaturalWeekLimit) {
     return {
       exceededAmount: transaction.operation.amount,
       exceeded: true,
@@ -18,7 +19,7 @@ const amountIsExceeded = (
   }
   const exceededAmount =
     transaction.operation.amount -
-    (configs.USER_NATURAL_FREE_LIMIT - amountUsed);
+    (Number(cashOutFeeNaturalWeekLimit) - amountUsed);
   return { exceededAmount, exceeded: exceededAmount > 0 };
 };
 

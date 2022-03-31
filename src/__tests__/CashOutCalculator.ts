@@ -1,7 +1,7 @@
 import { cashOutFeeCalculator } from "../cashOutFeeCalculator";
 import { Transaction } from "../Types";
 
-test("should calculate cache out fee for a juridical user ", () => {
+test("should calculate cache out fee for a juridical user ", async () => {
   const transaction: Transaction = {
     date: "2016-01-06",
     user_id: 2,
@@ -10,17 +10,17 @@ test("should calculate cache out fee for a juridical user ", () => {
     operation: { amount: 300.0, currency: "EUR" },
   };
 
-  expect(cashOutFeeCalculator(transaction, [])).toEqual(0.9);
+  expect(await cashOutFeeCalculator(transaction, [])).toEqual(0.9);
 
   expect(
-    cashOutFeeCalculator(
+    await cashOutFeeCalculator(
       { ...transaction, operation: { amount: 1, currency: "EUR" } },
       []
     )
   ).toEqual(0.5);
 });
 
-test("should calculate cache out fee for a natural user ", () => {
+test("should calculate cache out fee for a natural user ", async () => {
   const transaction: Transaction = {
     date: "2016-01-06",
     user_id: 1,
@@ -36,10 +36,10 @@ test("should calculate cache out fee for a natural user ", () => {
     operation: { amount: 30, currency: "EUR" },
   };
 
-  expect(cashOutFeeCalculator(transaction, [])).toEqual(87);
-  expect(cashOutFeeCalculator(transactionFree, [])).toEqual(0);
+  expect(await cashOutFeeCalculator(transaction, [])).toEqual(87);
+  expect(await cashOutFeeCalculator(transactionFree, [])).toEqual(0);
   expect(
-    cashOutFeeCalculator(transaction, [
+    await cashOutFeeCalculator(transaction, [
       {
         date: "2016-01-05",
         user_id: 1,

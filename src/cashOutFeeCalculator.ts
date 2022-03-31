@@ -1,53 +1,46 @@
 import { Transaction } from "./Types";
-import * as configs from "./configs";
 import { amountIsExceeded } from "./utils/amountIsExceeded";
-import axios from "axios";
+import * as configs from "./configs";
+import { getCashOutFeeJuridical, getCashOutFeeNatural } from "./configs";
 
-// // TODO: create a hook for this
-// const getCacheOutFeeJuridical = async () => {
-//   const res = await axios.get(
-//     // TODO: move this to env variables
-//     "https://developers.paysera.com/tasks/api/cash-out-juridical"
-//   );
-//   return res.data;
-// };
+const CashOutFeeJuridical = async (transaction: Transaction) => {
+  const { cashOutFeeJuridical, cashOutFeeJuridicalMin } =
+    await getCashOutFeeJuridical();
 
-// // TODO: create a hook for this
-// const getCacheOutFeeNatural = async () => {
-//   const res = await axios.get(
-//     // TODO: move this to env variables
-//     "https://developers.paysera.com/tasks/api/cash-out-natural"
-//   );
-//   return res.data;
-// };
+  return transaction.operation.amount * cashOutFeeJuridical >
+    cashOutFeeJuridicalMin
+    ? transaction.operation.amount * cashOutFeeJuridical
+    : cashOutFeeJuridicalMin;
+};
 
-const CashOutFeeJuridical = (transaction: Transaction) =>
-  transaction.operation.amount * configs.CASH_OUT_FEE_JURIDICAL >
-  configs.CASH_OUT_FEE_JURIDICAL_MIN
-    ? transaction.operation.amount * configs.CASH_OUT_FEE_JURIDICAL
-    : configs.CASH_OUT_FEE_JURIDICAL_MIN;
-
-const CashOutFeeNatural = (
+const CashOutFeeNatural = async (
   transaction: Transaction,
   submittedTransactions: Transaction[]
 ) => {
+  const { cashOutFeeNatural, cashOutFeeNaturalWeekLimit } =
+    await getCashOutFeeNatural();
+
   const { exceededAmount, exceeded } = amountIsExceeded(
     transaction,
-    submittedTransactions
+    submittedTransactions,
+    cashOutFeeNaturalWeekLimit
   );
+
   if (!exceeded) return 0;
-  return exceededAmount * configs.CASH_OUT_FEE_NATURAL;
+  return exceededAmount * Number(cashOutFeeNatural);
 };
 
-const cashOutFeeCalculator = (
+const cashOutFeeCalculator = async (
   transaction: Transaction,
   submittedTransactions: Transaction[]
 ) => {
   if (transaction.user_type === configs.USER_TYPE_JURIDICAL) {
-    return CashOutFeeJuridical(transaction);
+    const res = await CashOutFeeJuridical(transaction);
+    return res;
   }
   if (transaction.user_type === configs.USER_TYPE_NATURAL) {
-    return CashOutFeeNatural(transaction, submittedTransactions);
+    const res = await CashOutFeeNatural(transaction, submittedTransactions);
+    return res;
   }
   throw new Error("user type is not valid");
 };
