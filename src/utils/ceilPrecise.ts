@@ -8,3 +8,5 @@ export const ceilPrecise = (precision: number = 2) => {
     return (Math.ceil(num * power) / power).toFixed(precision);
   };
 };
+
+export const ceilPrecise2 = ceilPrecise(2);
